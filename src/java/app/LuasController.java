@@ -5,34 +5,47 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller untuk aplikasi JavaFX menghitung luas persegi panjang.
- * Menyediakan input panjang dan lebar, tombol hitung, dan label hasil.
+ * Controller untuk aplikasi JavaFX menghitung luas dan keliling persegi panjang.
  */
 public class LuasController {
 
     private TextField tPanjang = new TextField();
     private TextField tLebar = new TextField();
     private Label hasil = new Label();
+    private Label hasilKeliling = new Label(); // BARU
     private VBox view;
 
     /**
-     * Konstruktor untuk membuat tampilan GUI dan menambahkan event handler tombol hitung.
+     * Konstruktor untuk membuat tampilan GUI dan menambahkan event handler tombol.
      */
     public LuasController(){
         Button hitung = new Button("Hitung");
+        Button hitungKeliling = new Button("Hitung Keliling"); // BARU
+        Button reset = new Button("Reset");                      // BARU
+
         hitung.setOnAction(e -> hitung());
+        hitungKeliling.setOnAction(e -> hitungKeliling());      // BARU
+        reset.setOnAction(e -> {                                 // BARU
+            tPanjang.clear();
+            tLebar.clear();
+            hasil.setText("");
+            hasilKeliling.setText("");                           // BARU
+        });
 
         view = new VBox(10,
                 new Label("Panjang"), tPanjang,
                 new Label("Lebar"), tLebar,
-                hitung, hasil
+                hitung,                                           // tombol LUAS lama
+                hitungKeliling,                                   // BARU
+                reset,                                            // BARU
+                hasilKeliling,                                    // BARU
+                hasil                                             // hasil LUAS tetap di sini
         );
         view.setPadding(new Insets(20));
     }
 
     /**
      * Menghitung luas persegi panjang berdasarkan input panjang dan lebar.
-     * Menampilkan hasil di label atau pesan error jika input tidak valid.
      */
     private void hitung(){
         try{
@@ -45,8 +58,20 @@ public class LuasController {
     }
 
     /**
+     * Menghitung keliling persegi panjang berdasarkan input panjang dan lebar.
+     */
+    private void hitungKeliling(){ // BARU
+        try{
+            double p = Double.parseDouble(tPanjang.getText());
+            double l = Double.parseDouble(tLebar.getText());
+            hasilKeliling.setText("Keliling = " + 2*(p+l));
+        }catch(Exception ex){
+            hasilKeliling.setText("Input tidak valid");
+        }
+    }
+
+    /**
      * Mengembalikan view VBox untuk ditampilkan di scene JavaFX.
-     * @return VBox berisi semua komponen GUI
      */
     public VBox getView(){
         return view;
