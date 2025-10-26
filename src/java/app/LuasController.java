@@ -20,18 +20,12 @@ public class LuasController {
      */
     public LuasController(){
         Button hitung = new Button("Hitung");
-        Button reset = new Button("Reset"); //ini baru
         hitung.setOnAction(e -> hitung());
-        reset.setOnAction(e -> { //ini baru juga
-            tPanjang.clear();
-            tLebar.clear();
-            hasil.setText("");
-        });
 
-            view = new VBox(10,
+        view = new VBox(10,
                 new Label("Panjang"), tPanjang,
                 new Label("Lebar"), tLebar,
-                hitung,reset, hasil //reset baru
+                hitung, hasil
         );
         view.setPadding(new Insets(20));
     }
