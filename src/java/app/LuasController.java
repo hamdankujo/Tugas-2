@@ -78,3 +78,6 @@ public class LuasController {
     }
 }
 
+public static LuasController getInstance() {
+    return ;
+}
